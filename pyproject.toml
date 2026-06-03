@@ -2,6 +2,7 @@
 name = "unilime-test-task"
 version = "0.1.0"
 description = ""
+package-mode = false
 authors = [
     {name = "Nazariy",email = "nazariytymchyshyn@gmail.com"}
 ]
