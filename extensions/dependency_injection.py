@@ -8,8 +8,8 @@ from src.services import MailService
 
 def init_app() -> None:
     di[Config] = Config()
-    di[MailClient] = lambda di: SeleniumMailClient()
-    di[MailService] = lambda di: MailService()
+    di[MailClient] = lambda container: SeleniumMailClient()  # type: ignore
+    di[MailService] = lambda container: MailService()  # type: ignore
 
 
 def get_service[T](alias: type[T]) -> T:

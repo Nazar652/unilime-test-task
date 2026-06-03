@@ -14,9 +14,13 @@ class BrowserSession:
         self.lock = threading.Lock()
 
     def get_driver(self) -> webdriver.Chrome:
-        if self.driver is None or not self.is_alive(self.driver):
-            self.driver = self.build_driver()
-        return self.driver
+        driver = self.driver
+
+        if driver is None or not self.is_alive(driver):
+            driver = self.build_driver()
+            self.driver = driver
+
+        return driver
 
     def quit(self) -> None:
         if self.driver is not None:

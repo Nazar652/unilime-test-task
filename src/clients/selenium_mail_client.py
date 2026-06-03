@@ -23,7 +23,7 @@ class SeleniumMailClient:
             except TimeoutException as error:
                 raise MailboxTimeoutError('Timed out reading the temp email address') from error
             except WebDriverException as error:
-                raise MailboxTimeoutError('Could not reach tempail.com') from error
+                raise MailboxTimeoutError('Could not reach temp-mail.io') from error
 
     def fetch_inbox(self) -> list[InboxItem]:
         raise NotImplementedError
