@@ -1,4 +1,5 @@
 from dataclasses import asdict
+from uuid import UUID
 
 from flask import Response, jsonify
 from flask.views import MethodView
@@ -21,8 +22,8 @@ class InboxView(MethodView):
 
 class MessageView(MethodView):
     @inject
-    def get(self, message_id: str, service: MailService) -> Response:
-        return jsonify(asdict(service.get_message(message_id)))
+    def get(self, message_id: UUID, service: MailService) -> Response:
+        return jsonify(asdict(service.get_message(str(message_id))))
 
 
 class RefreshEmailView(MethodView):

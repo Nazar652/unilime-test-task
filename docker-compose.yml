@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    environment:
+      TEMPMAIL_HEADLESS: "true"
+      LOG_LEVEL: "INFO"
+      LOG_JSON: "true"
+    shm_size: "2gb"
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped

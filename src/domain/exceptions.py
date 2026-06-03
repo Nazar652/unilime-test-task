@@ -10,5 +10,9 @@ class MailboxTimeoutError(MailError):
     ...
 
 
+class ProviderUnavailableError(MailError):
+    ...
+
+
 class MessageNotFoundError(MailError):
     ...

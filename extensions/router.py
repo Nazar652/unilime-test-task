@@ -18,7 +18,7 @@ def init_app(app: Flask) -> None:
         view_func=RefreshEmailView.as_view('refresh_email'),
     )
     api_router.add_url_rule(
-        '/email/<message_id>',
+        '/email/<uuid:message_id>',
         view_func=MessageView.as_view('message'),
     )
 
