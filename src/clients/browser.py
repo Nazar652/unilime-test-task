@@ -1,0 +1,48 @@
+import threading
+
+from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.chrome.options import Options
+
+from src.config import Config
+
+
+class BrowserSession:
+    def __init__(self, config: Config) -> None:
+        self.config = config
+        self.driver: webdriver.Chrome | None = None
+        self.lock = threading.Lock()
+
+    def get_driver(self) -> webdriver.Chrome:
+        if self.driver is None or not self.is_alive(self.driver):
+            self.driver = self.build_driver()
+        return self.driver
+
+    def quit(self) -> None:
+        if self.driver is not None:
+            try:
+                self.driver.quit()
+            finally:
+                self.driver = None
+
+    def build_driver(self) -> webdriver.Chrome:
+        options = Options()
+        if self.config.headless:
+            options.add_argument('--headless=new')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--disable-gpu')
+        options.add_argument('--window-size=1280,1024')
+        options.page_load_strategy = 'eager'
+
+        driver = webdriver.Chrome(options=options)
+        driver.set_page_load_timeout(self.config.page_load_timeout)
+        return driver
+
+    @staticmethod
+    def is_alive(driver: webdriver.Chrome) -> bool:
+        try:
+            _ = driver.current_url
+            return True
+        except WebDriverException:
+            return False
