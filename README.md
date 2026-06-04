@@ -6,7 +6,7 @@ Selenium і віддає дані як JSON.
 ## Стек
 
 Python 3.14 · Flask · Selenium (headless Chrome) · kink (DI). Архітектура шарова
-(гексагональна): контролери → сервіс → порт `MailClient` → Selenium-адаптер.
+(гексагональна): контролери → сервіс → порт `AbstractMailClient` → Selenium-адаптер.
 
 ## Запуск
 

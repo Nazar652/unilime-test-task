@@ -10,11 +10,12 @@ from src.clients.pages.inbox_page import InboxPage
 from src.config import Config
 from src.domain.exceptions import MailboxTimeoutError, ProviderUnavailableError
 from src.domain.models import EmailMessage, InboxItem, TempEmail
+from src.domain.ports import AbstractMailClient
 
 logger = logging.getLogger(__name__)
 
 
-class SeleniumMailClient:
+class SeleniumMailClient(AbstractMailClient):
     @inject
     def __init__(self, browser: BrowserSession, config: Config) -> None:
         self.config = config

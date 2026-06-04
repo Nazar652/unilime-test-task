@@ -4,14 +4,14 @@ from kink import inject
 
 from src.domain.exceptions import MessageNotFoundError
 from src.domain.models import EmailMessage, InboxItem, TempEmail
-from src.domain.ports import MailClient
+from src.domain.ports import AbstractMailClient
 
 logger = logging.getLogger(__name__)
 
 
 class MailService:
     @inject
-    def __init__(self, client: MailClient) -> None:
+    def __init__(self, client: AbstractMailClient) -> None:
         self.client = client
 
     def get_email(self) -> TempEmail:
